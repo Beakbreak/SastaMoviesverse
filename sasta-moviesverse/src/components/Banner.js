@@ -1,6 +1,6 @@
 import React from 'react';
 const Banner = () => {
-  return(
+  return (
     <div className="banner">
       <div className="banner__contents">
         <h1 className="banner__title">Ginny &amp; Georgia</h1>
