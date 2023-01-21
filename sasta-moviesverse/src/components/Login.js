@@ -2,7 +2,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
-const Login = () => {
+const Login = (props) => {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -37,7 +37,7 @@ const Login = () => {
         }
 
         if (page) {
-            navigate("/dashboard");
+
             fetch("", {
                 method: "POST", body: JSON.stringify({
                     email: email,
@@ -50,7 +50,8 @@ const Login = () => {
                 }
             })
                 .then((auth) => {
-                    if (auth) {
+                    if (auth.ok) {
+                        props.setToken(auth.data.access_token)
                         navigate("/dashboard");
                     }
                 })
@@ -69,7 +70,7 @@ const Login = () => {
                 }
             })
                 .then((auth) => {
-                    if (auth) {
+                    if (auth.ok) {
                         navigate("/dashboard");
                     }
                 })
@@ -143,7 +144,7 @@ const Login = () => {
                 )}
                 <div className="login-form-other">
                     <div className="login-signup-now">
-                        {page ? "New to Netflix?" : "Existing User"} &nbsp;
+                        {page ? "New to Moviesverse?" : "Existing User"} &nbsp;
                         <Link className=" " to={page ? "/register" : "/login"}>
                             {page ? "Sign up now" : "Sign In"}
                         </Link>

@@ -5,34 +5,36 @@ import HomeBanner from "./components/HomeBanner";
 import Login from "./components/Login";
 import Banner from "./components/Banner";
 import List from "./components/List";
+import useToken from './components/useToken'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
+  const { token, removeToken, setToken } = useToken();
   return (
     <React.Fragment>
       <Router>
         <Routes>
           <Route path="/" element={
             <React.Fragment>
-              <Header />
+              <Header token={removeToken} />
               <HomeBanner />
             </React.Fragment>
           } />
           <Route path="/login" element={
             <React.Fragment>
-              <Header />
-              <Login />
+              <Header token={removeToken} />
+              <Login setToken={setToken} />
             </React.Fragment>
           } />
           <Route path="/register" element={
             <React.Fragment>
-              <Header />
-              <Login />
+              <Header token={removeToken} />
+              <Login setToken={setToken} />
             </React.Fragment>
           } />
           <Route path="/dashboard" element={
             <React.Fragment>
-              <Header />
+              <Header token={removeToken} />
               <Banner />
               <List title="Netflix Originals" param="originals" />
               <List title="Trending Now" param="trending" />
