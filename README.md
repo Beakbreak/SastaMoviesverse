@@ -1,2 +1,2 @@
-# ZAnime
-A simple anime webApp with recommender system
+# SastaMoviesverse
+A simple movie webApp with recommender system
