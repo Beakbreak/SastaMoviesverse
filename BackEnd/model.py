@@ -2,7 +2,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from recsys_utils import *
-
 #Load data
 X, W, b, num_movies, num_features, num_users = load_precalc_params_small()
 Y, R = load_ratings_small()
@@ -14,46 +13,9 @@ print("b", b.shape)
 print("num_features", num_features)
 print("num_movies",   num_movies)
 print("num_users",    num_users)
-
 #  From the matrix, we can compute statistics like average rating.
 tsmean =  np.mean(Y[0, R[0, :].astype(bool)])
 print(f"Average rating for movie 1 : {tsmean:0.3f} / 5" )
-
-# GRADED FUNCTION: cofi_cost_func
-# UNQ_C1
-
-def cofi_cost_func(X, W, b, Y, R, lambda_):
-    """
-    Returns the cost for the content-based filtering
-    Args:
-      X (ndarray (num_movies,num_features)): matrix of item features
-      W (ndarray (num_users,num_features)) : matrix of user parameters
-      b (ndarray (1, num_users)            : vector of user parameters
-      Y (ndarray (num_movies,num_users)    : matrix of user ratings of movies
-      R (ndarray (num_movies,num_users)    : matrix, where R(i, j) = 1 if the i-th movies was rated by the j-th user
-      lambda_ (float): regularization parameter
-    Returns:
-      J (float) : Cost
-    """
-    nm, nu = Y.shape
-    n=X.shape[1]
-    J = 0
-    ### START CODE HERE ###
-    for j in range(nu):
-        w=W[j, : ]
-        b_j= b[0,j]
-        for i in range(nm):
-            x=X[i, : ]
-            r=R[i,j]
-            y=Y[i,j]
-            J+=np.square(r*(np.dot(w,x) + b_j - y))
-    J+=(lambda_) * (np.sum(np.square(W)) + np.sum(np.square(X)))
-    J=J/2
-
-    ### END CODE HERE ### 
-
-    return J
-
 # Reduce the data set size so that this runs faster
 num_users_r = 4
 num_movies_r = 5 
@@ -64,19 +26,6 @@ W_r = W[:num_users_r,  :num_features_r]
 b_r = b[0, :num_users_r].reshape(1,-1)
 Y_r = Y[:num_movies_r, :num_users_r]
 R_r = R[:num_movies_r, :num_users_r]
-
-# Evaluate cost function
-J = cofi_cost_func(X_r, W_r, b_r, Y_r, R_r, 0);
-print(f"Cost: {J:0.2f}")
-
-# Evaluate cost function with regularization 
-J = cofi_cost_func(X_r, W_r, b_r, Y_r, R_r, 1.5);
-print(f"Cost (with regularization): {J:0.2f}")
-
-# Public tests
-from public_tests import *
-test_cofi_cost_func(cofi_cost_func)
-
 def cofi_cost_func_v(X, W, b, Y, R, lambda_):
     """
     Returns the cost for the content-based filtering
@@ -94,7 +43,6 @@ def cofi_cost_func_v(X, W, b, Y, R, lambda_):
     j = (tf.linalg.matmul(X, tf.transpose(W)) + b - Y)*R
     J = 0.5 * tf.reduce_sum(j**2) + (lambda_/2) * (tf.reduce_sum(X**2) + tf.reduce_sum(W**2))
     return J
-
 # Evaluate cost function
 J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 0);
 print(f"Cost: {J:0.2f}")
@@ -102,7 +50,6 @@ print(f"Cost: {J:0.2f}")
 # Evaluate cost function with regularization 
 J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 1.5);
 print(f"Cost (with regularization): {J:0.2f}")
-
 movieList, movieList_df = load_Movie_List_pd()
 
 my_ratings = np.zeros(num_movies)          #  Initialize my ratings
@@ -112,7 +59,7 @@ my_ratings = np.zeros(num_movies)          #  Initialize my ratings
 my_ratings[2700] = 5 
 
 #Or suppose you did not enjoy Persuasion (2007), you can set
-my_ratings[2609] = 2;
+my_ratings[2609] = 2
 
 # We have selected a few movies we liked / did not like and the ratings we
 # gave are as follows:
@@ -132,8 +79,7 @@ my_rated = [i for i in range(len(my_ratings)) if my_ratings[i] > 0]
 print('\nNew user ratings:\n')
 for i in range(len(my_ratings)):
     if my_ratings[i] > 0 :
-        print(f'Rated {my_ratings[i]} for  {movieList_df.loc[i,"title"]}');
-
+        print(f'Rated {my_ratings[i]} for  {movieList_df.loc[i,"title"]}')
 # Reload ratings
 Y, R = load_ratings_small()
 
@@ -145,7 +91,6 @@ R = np.c_[(my_ratings != 0).astype(int), R]
 
 # Normalize the Dataset
 Ynorm, Ymean = normalizeRatings(Y, R)
-
 #  Useful Values
 num_movies, num_users = Y.shape
 num_features = 100
@@ -158,7 +103,6 @@ b = tf.Variable(tf.random.normal((1,          num_users),   dtype=tf.float64),  
 
 # Instantiate an optimizer.
 optimizer = keras.optimizers.Adam(learning_rate=1e-1)
-
 iterations = 200
 lambda_ = 1
 for iter in range(iterations):
@@ -180,7 +124,6 @@ for iter in range(iterations):
     # Log periodically.
     if iter % 20 == 0:
         print(f"Training loss at iteration {iter}: {cost_value:0.1f}")
-
 # Make a prediction using trained weights and biases
 p = np.matmul(X.numpy(), np.transpose(W.numpy())) + b.numpy()
 
@@ -188,21 +131,13 @@ p = np.matmul(X.numpy(), np.transpose(W.numpy())) + b.numpy()
 pm = p + Ymean
 
 my_predictions = pm[:,0]
+movies_to_send= []
 
 # sort predictions
 ix = tf.argsort(my_predictions, direction='DESCENDING')
 
-for i in range(17):
+for i in range(25):
     j = ix[i]
     if j not in my_rated:
-        print(f'Predicting rating {my_predictions[j]:0.2f} for movie {movieList[j]}')
-
-print('\n\nOriginal vs Predicted ratings:\n')
-for i in range(len(my_ratings)):
-    if my_ratings[i] > 0:
-        print(f'Original {my_ratings[i]}, Predicted {my_predictions[i]:0.2f} for {movieList[i]}')
-
-filter=(movieList_df["number of ratings"] > 20)
-movieList_df["pred"] = my_predictions
-movieList_df = movieList_df.reindex(columns=["pred", "mean rating", "number of ratings", "title"])
-movieList_df.loc[ix[:300]].loc[filter].sort_values("mean rating", ascending=False)
+        movies_to_send.append(movieList[j])
+        print(movieList[j])
