@@ -63,7 +63,7 @@ const Login = (props) => {
         })
         .catch((error) => {
           setUserExist(true);
-          props.log(false);
+
         });
       // user-not-found
     } else {
@@ -94,7 +94,7 @@ const Login = (props) => {
         })
         .catch((error) => {
           setIsEmailUsed(true);
-          props.log(false);
+
         });
     }
   };
