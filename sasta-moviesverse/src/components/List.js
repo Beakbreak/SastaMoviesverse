@@ -9,22 +9,23 @@ const List = (props) => {
         <h2 className="text-white title">{props.title}</h2>
         <div className="col">
           <div className="row__posters">
-            <Router>
-              <Routes>
-                {props.data.map((item) => (
-                  // <img
-                  //   className="row__poster row__posterLarge"
-                  //   src={""}
-                  //   alt={item}
-                  // />
-
-                  <Route
-                    path="/linked"
-                    element={<Linked moviedata={item} />}
-                  ></Route>
-                ))}
-              </Routes>
-            </Router>
+            {/* <Router>
+              <Routes> */}
+            {props.data.map((item) => (
+              // <img
+              //   className="row__poster row__posterLarge"
+              //   src={""}
+              //   alt={item}
+              // />
+              // <Route
+              //   exact
+              //   path="/linked"
+              //   element={<Linked moviedata={item} />}
+              // />
+              <p className="info">{item},</p>
+            ))}
+            {/* </Routes>
+            </Router> */}
           </div>
         </div>
       </div>
