@@ -14,32 +14,33 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'moviesverse'
- 
+
 mysql = MySQL(app)
 bcrypt = Bcrypt(app)
 
+
 @app.route('/')
-def home() :
+def home():
     return "Hello world"
+
+
 @app.route('/rating', methods=['POST'])
 def rating_insert():
     cursor = mysql.connection.cursor()
     content = request.json
-    
+
     email = content['email']
     movie_id = content['movie_id']
-    rating=content['rating']
+    rating = content['rating']
     query = 'INSERT INTO new_ratings VALUES ((SELECT u_id FROM registered_users WHERE email=%s),%s,%s)'
-    data = (email ,movie_id, rating )
+    data = (email, movie_id, rating)
 
     cursor.execute(query, data)
     mysql.connection.commit()
     return 'got it'
 
-    
 
-
-@app.route('/login', methods = ['POST'])
+@app.route('/login', methods=['POST'])
 def login():
     cursor1 = mysql.connection.cursor()
 
@@ -54,31 +55,32 @@ def login():
     # print(results)
 
     query1 = "SELECT movie_id, rating FROM new_ratings WHERE u_id = (SELECT u_id FROM registered_users WHERE email = %s AND password=%s)"
-    #temp = (results[0][0])
+    # temp = (results[0][0])
 
-    cursor2 = mysql.connection.cursor();
+    cursor2 = mysql.connection.cursor()
 
     cursor2.execute(query1, data)
-    #mysql.connection.commit()
+    # mysql.connection.commit()
 
     res = cursor2.fetchall()
     print(res)
-    x=predict(res)
-    #cursor.close()
+    x = predict(res)
+    # cursor.close()
     return x
 
-@app.route('/register', methods = ['GET','POST'])
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     cursor = mysql.connection.cursor()
     content = request.json
-    
+
     cursor.execute('SELECT * FROM registered_users')
     count = len(cursor.fetchall())
     email = content['email']
     pwd = content['password']
-    
+
     query = "INSERT INTO registered_users VALUES (%s, %s, %s)"
-    data = ( count,email, pwd)
+    data = (count, email, pwd)
 
     cursor.execute(query, data)
     mysql.connection.commit()
@@ -87,8 +89,7 @@ def register():
     cursor.close()
 
 
-
-def predict(res) : 
+def predict(res):
     print(res)
     X, W, b, num_movies, num_features, num_users = load_precalc_params_small()
     Y, R = load_ratings_small()
@@ -114,7 +115,6 @@ def predict(res) :
     Y_r = Y[:num_movies_r, :num_users_r]
     R_r = R[:num_movies_r, :num_users_r]
 
-
     def cofi_cost_func_v(X, W, b, Y, R, lambda_):
         """
         Returns the cost for the content-based filtering
@@ -134,7 +134,6 @@ def predict(res) :
             (tf.reduce_sum(X**2) + tf.reduce_sum(W**2))
         return J
 
-
     # Evaluate cost function
     J = cofi_cost_func_v(X_r, W_r, b_r, Y_r, R_r, 0)
     print(f"Cost: {J:0.2f}")
@@ -146,7 +145,7 @@ def predict(res) :
 
     my_ratings = np.zeros(num_movies)  # Initialize my ratings
 
-    for row in res :
+    for row in res:
         my_ratings[row[0]] = row[1]
     my_rated = [i for i in range(len(my_ratings)) if my_ratings[i] > 0]
 
@@ -220,6 +219,7 @@ def predict(res) :
             print(movieList[j])
 
     return movies_to_send
+
 
 if __name__ == "__main__":
     app.run(debug=False, port=8000)
