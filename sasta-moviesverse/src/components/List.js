@@ -18,7 +18,10 @@ const List = (props) => {
                   //   alt={item}
                   // />
 
-                  <Route path="/linked" element={<Linked moviedata={item} />}></Route>
+                  <Route
+                    path="/linked"
+                    element={<Linked moviedata={item} />}
+                  ></Route>
                 ))}
               </Routes>
             </Router>
