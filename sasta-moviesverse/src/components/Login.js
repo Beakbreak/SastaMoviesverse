@@ -2,7 +2,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
-const Login = (props) => {
+const Login = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -13,6 +13,7 @@ const Login = (props) => {
     const [isEmailUsed, setIsEmailUsed] = useState(false);
     const [emailValid, setEmailValid] = useState(true);
     const [passwordValid, setPasswordValid] = useState(true);
+
 
     // const auth = getAuth();
 
@@ -51,7 +52,11 @@ const Login = (props) => {
             })
                 .then((auth) => {
                     if (auth.ok) {
-                        props.setToken(auth.data.access_token)
+                        localStorage.setItem('token-info', JSON.stringify(auth));
+
+                        setEmail('');
+                        setPassword('');
+                        alert("You have successfully Logged in!")
                         navigate("/dashboard");
                     }
                 })
@@ -71,6 +76,12 @@ const Login = (props) => {
             })
                 .then((auth) => {
                     if (auth.ok) {
+                        localStorage.setItem('token-info', JSON.stringify(auth));
+
+                        setEmail('');
+                        setPassword('');
+                        alert("You have successfully Registered!")
+
                         navigate("/dashboard");
                     }
                 })

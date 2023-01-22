@@ -1,8 +1,10 @@
 import { useNavigate, Link } from "react-router-dom";
-import React from 'react';
+
+import react, { useState } from 'react';
 
 const Header = () => {
   const navigate = useNavigate();
+  const [isLoggedin, setisLoggedin] = useState(false);
 
   const clickHandler = (e) => {
     e.preventDefault();
@@ -11,6 +13,15 @@ const Header = () => {
   const clickHandler2 = (e) => {
     e.preventDefault();
     navigate('/register');
+  }
+  const clickHandler3 = (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token-info');
+    setisLoggedin(false);
+    navigate('/');
+  }
+  if (localStorage.getItem('token-info')) {
+    setisLoggedin(true);
   }
 
   return (
@@ -23,8 +34,9 @@ const Header = () => {
 
           <div className="navbar">
             <form className="d-flex" role="search">
-              <button className="btn btn-info signup" onClick={clickHandler2}>SignUp</button>
-              <button className="btn btn-danger" onClick={clickHandler}>SignIn</button>
+              {!isLoggedin && <button className="btn btn-info signup" onClick={clickHandler2}>SignUp</button>}
+              {!isLoggedin && <button className="btn btn-danger" onClick={clickHandler}>SignIn</button>}
+              {isLoggedin && <button className="btn btn-danger" onClick={clickHandler3}>Logout</button>}
             </form>
           </div>
         </div>

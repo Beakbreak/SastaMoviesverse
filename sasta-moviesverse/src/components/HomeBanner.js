@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 const HomeBanner = () => {
   const navigate = useNavigate();
   const getStartedHandler = () => {
-    navigate('/login');
+    if (localStorage.getItem('token-info')) {
+      navigate('/dashboard')
+    } else {
+      navigate('/login');
+    }
+
   }
   return (
     <div className="home-banner">

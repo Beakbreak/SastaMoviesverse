@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 const List = ({ title, param }) => {
   const [list, setList] = useState([]);
   useEffect(() => {
-    console.log('11')
+    fetch("").then(response => (response.json()))
   }, []);
   console.log(list)
   return (
