@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import linked from "linked";
+import Linked from "./linked";
+
 const List = (props) => {
   return (
     <div className="list">
@@ -18,8 +19,8 @@ const List = (props) => {
                   // />
 
                   <Route
-                    path="./linked"
-                    element={<linked moviedata={item} />}
+                    path="/linked"
+                    element={<Linked moviedata={item} />}
                   ></Route>
                 ))}
               </Routes>
