@@ -1,7 +1,9 @@
 .nav__logo{
   width: 100px;
 }
-
+.form-check{
+  margin-top: 1.0rem;
+}
 // Top nav bar
 .topNav{
   position: absolute;
@@ -57,7 +59,8 @@
 
     button{
       font-size: 1.5rem;
-      padding: .2rem 1.5rem;
+      margin-left: 12vw;
+      padding: .2rem 2.0rem;
       border: 0;
       height: 54px;
       font-weight: normal;
@@ -216,4 +219,10 @@
     opacity: 1;
     transform: scale(1.09);
   }
+}
+.signup{
+  margin-right: 1.0rem;
+}
+.logo{
+  font-size: 200%;
 }

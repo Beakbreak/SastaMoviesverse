@@ -14,6 +14,7 @@ const Login = () => {
     const [emailValid, setEmailValid] = useState(true);
     const [passwordValid, setPasswordValid] = useState(true);
 
+
     // const auth = getAuth();
 
     const validation = (fieldName, value) => {
@@ -37,7 +38,7 @@ const Login = () => {
         }
 
         if (page) {
-            navigate("/dashboard");
+
             fetch("", {
                 method: "POST", body: JSON.stringify({
                     email: email,
@@ -50,7 +51,12 @@ const Login = () => {
                 }
             })
                 .then((auth) => {
-                    if (auth) {
+                    if (auth.ok) {
+                        localStorage.setItem('token-info', JSON.stringify(auth));
+
+                        setEmail('');
+                        setPassword('');
+                        alert("You have successfully Logged in!")
                         navigate("/dashboard");
                     }
                 })
@@ -69,7 +75,13 @@ const Login = () => {
                 }
             })
                 .then((auth) => {
-                    if (auth) {
+                    if (auth.ok) {
+                        localStorage.setItem('token-info', JSON.stringify(auth));
+
+                        setEmail('');
+                        setPassword('');
+                        alert("You have successfully Registered!")
+
                         navigate("/dashboard");
                     }
                 })
@@ -143,7 +155,7 @@ const Login = () => {
                 )}
                 <div className="login-form-other">
                     <div className="login-signup-now">
-                        {page ? "New to Netflix?" : "Existing User"} &nbsp;
+                        {page ? "New to Moviesverse?" : "Existing User"} &nbsp;
                         <Link className=" " to={page ? "/register" : "/login"}>
                             {page ? "Sign up now" : "Sign In"}
                         </Link>
