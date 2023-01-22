@@ -3,6 +3,7 @@ import tensorflow as tf
 from tensorflow import keras
 from recsys_utils import *
 # Load data
+
 X, W, b, num_movies, num_features, num_users = load_precalc_params_small()
 Y, R = load_ratings_small()
 
