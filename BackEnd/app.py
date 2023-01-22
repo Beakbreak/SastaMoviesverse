@@ -21,6 +21,28 @@ bcrypt = Bcrypt(app)
 @app.route('/')
 def home() :
     return "Hello world"
+@app.route('/rating', methods=['POST'])
+def rating_insert():
+    cursor = mysql.connection.cursor()
+    content = request.json
+    
+    email = content['email']
+    cursor.execute(f'SELECT u_id FROM registered_users WHERE email={email}')
+
+    movie_id = content['movie_id']
+    rating=content['rating']
+
+    l=cursor.fetchall()
+    print(l)
+    u_id=l[0][0]
+    query = f"INSERT INTO new_ratings VALUES ({u_id},{movie_id},{rating})"
+    data = (u_id ,movie_id, rating )
+
+    cursor.execute(query, data)
+    mysql.connection.commit()
+
+    
+
 
 @app.route('/login', methods = ['POST'])
 def login():
