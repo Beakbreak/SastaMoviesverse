@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import linked from "linked";
+import Linked from "./linked";
+
 const List = (props) => {
   return (
     <div className="list">
@@ -8,7 +9,7 @@ const List = (props) => {
         <h2 className="text-white title">{props.title}</h2>
         <div className="col">
           <div className="row__posters">
-            <BrowserRouter>
+            <Router>
               <Routes>
                 {props.data.map((item) => (
                   // <img
@@ -17,10 +18,10 @@ const List = (props) => {
                   //   alt={item}
                   // />
 
-                  <Route path="linked" element={<linked moviedata={item} />}></Route>
+                  <Route path="/linked" element={<Linked moviedata={item} />}></Route>
                 ))}
               </Routes>
-            </BrowserRouter>
+            </Router>
           </div>
         </div>
       </div>
