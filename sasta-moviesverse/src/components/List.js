@@ -16,6 +16,7 @@ const List = (props) => {
     setIsOpen(false);
   };
   const lol = (form) => {
+    form.preventDefault();
     const formData = new FormData();
     const plainFormData = Object.fromEntries(formData.entries());
 
@@ -40,7 +41,7 @@ const List = (props) => {
           <div className="row__posters">
             {props.data.map((item) => (
               <>
-                <p onClick={openModal}>{item}</p>
+                <p className="info" onClick={openModal}>{item}</p>
                 <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={closeModal}
