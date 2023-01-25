@@ -15,8 +15,8 @@ const List = (props) => {
   const closeModal = () => {
     setIsOpen(false);
   };
-  const lol = (form) => {
-    form.preventDefault();
+  const lol = (e) => {
+    e.preventDefault();
     const formData = new FormData();
     const plainFormData = Object.fromEntries(formData.entries());
 
@@ -32,6 +32,7 @@ const List = (props) => {
         "Content-Type": "application/json",
       },
     });
+    closeModal();
   };
   return (
     <div className="list">
@@ -49,7 +50,7 @@ const List = (props) => {
                 >
                   <h2>{item}</h2>
                   <h3>Rate this movie:</h3>
-                  <form onSubmit={() => lol(this)}>
+                  <form onSubmit={lol}>
                     <input type="number" id="rating" />
                     <button onClick={closeModal}>close</button>
                     <button type="submit">Submit</button>
