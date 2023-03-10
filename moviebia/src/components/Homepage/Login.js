@@ -1,6 +1,8 @@
 import classes from "./Login.module.css";
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 const Login = (props) => {
+    const Navigate = useNavigate();
     const [displayLogin, setDisplayLogin] = useState(true);
     const signupToggle = (event) => {
         event.preventDefault();
@@ -10,6 +12,10 @@ const Login = (props) => {
         event.preventDefault();
         setDisplayLogin(true);
     }
+    const submitHandler = (event) => {
+        event.preventDefault();
+        Navigate('/Dashboard');
+    }
     return (
         <div className={classes.container}>
             <div className={classes.form}>
@@ -17,7 +23,7 @@ const Login = (props) => {
                     <button className={classes.signUpBtn} onClick={signupToggle}>SIGN UP</button>
                     <button className={classes.loginBtn} onClick={loginToggle}>LOG IN</button>
                 </div>
-                {!displayLogin && <form className={classes.signUp} action="" method="get">
+                {!displayLogin && <form className={classes.signUp} onSubmit={submitHandler} >
                     <div className={classes.formGroup}>
                         <input type="text" id="userName" placeholder="User Name" autocomplete="off" />
                     </div>
@@ -35,13 +41,14 @@ const Login = (props) => {
                         <span className={classes.text}>I agree with term & conditions</span>
                     </div>
                     <div className={classes.formGroup}>
-                        <button type="submit" className={classes.btn2}>REGISTER</button>
+                        <button type="submit" className={classes.btn2}>
+                            REGISTER</button>
                     </div>
 
                 </form>}
 
 
-                {displayLogin && <form className={classes.login} action="" method="get">
+                {displayLogin && <form className={classes.login} onSubmit={submitHandler} >
 
                     <div className={classes.formGroup}>
                         <input type="email" placeholder="Email ID" name="email" required autocomplete="off" />

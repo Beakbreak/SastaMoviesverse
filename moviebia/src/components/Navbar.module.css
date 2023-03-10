@@ -4,7 +4,7 @@
     height: 10vh;
 }
 
-img {
+.img {
     height: 10vh;
 }
 
@@ -39,9 +39,9 @@ img {
     z-index: 1;
 }
 
-.options p{
+.options p {
     height: 5vh;
-    width: max-content; 
+    width: max-content;
     padding: 1vh 1vw;
 }
 
@@ -49,7 +49,7 @@ img {
     background-color: rgb(76, 151, 188);
 }
 
-input {
+.input {
     padding: 1vh 1vw;
     height: 3vh;
     width: 30vw;

@@ -4,12 +4,7 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-image: url(https://www.hmablogs.com/wp-content/uploads/2021/09/background.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-}
+
 
 /* align items center vertically and horizontally  */
 .container {
@@ -17,6 +12,8 @@ body {
     justify-content: center;
     align-items: center !important;
     height: 85vh;
+    animation: fadeIn 0.5s;
+    -webkit-animation: fadeIn 0.5s;
 }
 
 .form {
@@ -113,4 +110,19 @@ input:focus {
 
 .login .checkBox {
     margin-top: 30px !important;
+}
+
+.fadeDiv {
+    animation: fadeOut 0.5s;
+    -webkit-animation: fadeOut 0.5s;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

@@ -16,7 +16,7 @@ const Page = () => {
 
         setTimeout(() => {
             setDisplayForm(true);
-        }, 1000);
+        }, 500);
 
 
     }
