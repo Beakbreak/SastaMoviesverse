@@ -3,7 +3,7 @@ import style from './Navbar.module.css';
 const Navbar = props => {
     return (
         <div className={style.Navbar}>
-            <img className={style.img} src={require('./main-logo.png')} alt='logo' />
+            <img className={style.img} src={require('./home-logo.png')} alt='logo' />
 
             <div className={style.cards}>
                 <p>Genres</p>
@@ -45,7 +45,7 @@ const Navbar = props => {
             </div>
 
             <input className={style.input} type="text" />
-            <p className={style.p}>Logout</p>
+            <p className={style.logout}>Logout</p>
         </div>
     )
 }

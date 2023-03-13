@@ -1,11 +1,11 @@
 .Navbar {
-    background-color: rgb(0, 106, 161);
+    background-color: transparent;
     display: flex;
     height: 10vh;
 }
 
 .img {
-    height: 10vh;
+    height: 9vh;
 }
 
 .cards {
@@ -64,4 +64,13 @@
     color: white;
     margin-right: 5vw;
     cursor: pointer;
+}
+
+.logout {
+    font-size: 3vh;
+    font-weight: 400;
+    color: white;
+    margin-right: 5vw;
+    cursor: pointer;
+    margin-top: 18px;
 }
