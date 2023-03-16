@@ -1,0 +1,96 @@
+// * {
+// 	/* removing any padding that might become problematic */
+// 	margin: 0;
+// 	padding: 0;
+// }
+
+// body {
+// 	margin: 30px 15%;
+// 	background: #ccc;
+// 	font-family: tahoma, arial, verdana;
+// }
+
+
+
+.main1 .li {
+	/* forgot to put '.main' - 40 min debug :) */
+	position: relative;
+	display: block;
+	width: 10vw;
+	float: left;
+	transition: all 0.5s;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	margin-top: 2.5vh;
+
+	.main1 .ul {
+		width: 2000px;
+
+	}
+
+	// border-left: 1px solid rgba(0, 0, 0, 0.65);
+	// box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.45);
+	// -webkit-box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.45);
+	// -moz-box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.45);
+}
+
+.slidetitle {
+	/* initializing squares */
+	background: rgba(0, 0, 0, .65);
+
+	/* position on bottom */
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 50vw;
+}
+
+.slidetitle .span {
+	/* titles follow here
+	some values have to be exact */
+	display: block;
+	color: white;
+	padding: 3vh;
+	font-size: 3vh;
+}
+
+.main1 {
+	/* some calculus */
+	width: 100vw;
+	height: 55vh;
+
+	overflow: hidden;
+	// box-shadow: 0px 0px 10px 3px #888888;
+	// -moz-box-shadow: 0px 0px 10px 3px #888888;
+	// -webkit-box-shadow: 0px 0px 10px 3px #888888;
+}
+
+
+
+
+.main1 .li .img {
+	display: block;
+	height: 50vh;
+	width: 50vw;
+	margin: 0;
+	border-radius: 10px;
+}
+
+/* when u hover over the entire list, the default value is set to 40 */
+.main1 .ul:hover .li {
+	width: 40px;
+}
+
+/* however, when you hover on a particular element from that list, the value is overriden. that's why the above comes first ^ */
+.main1 .ul .li:hover {
+	width: 50vw;
+
+}
+
+.main1 .ul .img:hover {
+	border: 2px solid whitesmoke;
+	box-shadow: 0 0 10px 2px white;
+
+
+
+}

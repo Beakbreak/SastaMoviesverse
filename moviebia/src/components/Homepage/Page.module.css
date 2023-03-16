@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Shantell+Sans&display=swap');
+
+.videoTag {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.textHeading {
+    margin-top: 9vh;
+    padding: 2rem;
+    color: antiquewhite;
+    font-family: 'Raleway', sans-serif;
+    font-size: 7vh;
+    font-weight: bolder;
+
+
+}
+
+.mainText {
+    color: antiquewhite;
+    margin: 0 12vw;
+    font-family: 'Shantell Sans', sans-serif;
+    font-size: 3vh;
+    padding-bottom: 5vh;
+    margin-bottom: 3vh;
+}
+
+.fadeDiv {
+    animation: fadeOut 0.5s;
+    -webkit-animation: fadeOut 0.5s;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

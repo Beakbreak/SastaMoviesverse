@@ -1,0 +1,4 @@
+https://codepen.io/knyttneve/pen/YgZbLO   -->content
+https://codepen.io/aybukeceylan/pen/vYNgLdw -->content-hover
+https://codepen.io/alexerlandsson/pen/ONqdZY -->banner-slideshow
+https://codepen.io/wanderer/pen/DLxZoa -->banner-slideshow
