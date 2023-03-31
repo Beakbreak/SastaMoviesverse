@@ -1,4 +1,4 @@
-id,mean_rating,number_of_ratings,title,movieId,War,Fantasy,Adventure,Horror,Documentary,Mystery,Drama,Children,Romance,IMAX,Comedy,Western,Animation,No_genre,Crime,Musical,Thriller,Sci_Fi,Action,Film_Noir
+key,mean_rating,number_of_ratings,title,movieId,War,Fantasy,Adventure,Horror,Documentary,Mystery,Drama,Children,Romance,IMAX,Comedy,Western,Animation,No_genre,Crime,Musical,Thriller,Sci_Fi,Action,Film_Noir
 0,4.031706713,4037,Persuasion (1995),28,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0
 1,3.683937824,193,Lamerica (1994),53,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0
 2,2.354105139,1693,Fair Game (1995),71,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0
