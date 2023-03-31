@@ -1,6 +1,7 @@
 from django.db import models
 
 class Movie(models.Model):
+  id=models.IntegerField(null=False,primary_key=True)
   mean_rating=models.FloatField()
   number_of_ratings=models.IntegerField()
   title=models.CharField(max_length=255)
@@ -22,7 +23,7 @@ class Movie(models.Model):
   Musical=models.IntegerField()
   Thriller=models.IntegerField()
   Sci_Fi=models.IntegerField()
-  Action=models.IntegerField()
+  Action=models.IntegerField(null=True)
   Film_Noir=models.IntegerField()
   movieId=models.IntegerField(unique=True)  
     
@@ -38,20 +39,24 @@ class Rating(models.Model):
   def __str__(self):
     return self.userId
     
-class Suggestions(models.Model):
+class Suggestion(models.Model):
   userId=models.IntegerField()
-  suggestion_1=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_2=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_3=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_4=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_5=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_6=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))          
-  suggestion_7=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_8=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_9=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_10=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_11=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_12=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_13=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_14=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
-  suggestion_15=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE)) 
+  suggestion_1=models.IntegerField()
+  suggestion_2=models.IntegerField(default=-1)
+  suggestion_3=models.IntegerField(default=-1)
+  suggestion_4=models.IntegerField()  
+  suggestion_5=models.IntegerField()
+  suggestion_6=models.IntegerField()          
+  suggestion_7=models.IntegerField()
+  suggestion_8=models.IntegerField()
+  suggestion_9=models.IntegerField()
+  suggestion_10=models.IntegerField()
+  suggestion_11=models.IntegerField()
+  suggestion_12=models.IntegerField()
+  suggestion_13=models.IntegerField()
+  suggestion_14=models.IntegerField()
+  suggestion_15=models.IntegerField()
+  
+  
+  def __str__(self):
+    return str(self.userId) 
