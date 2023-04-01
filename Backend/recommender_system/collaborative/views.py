@@ -1,9 +1,9 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import serializers, generics
+from rest_framework import generics
 import pandas as pd
 from collaborative.models import Movie, Rating, Suggestion, userid
-from .serializers import RatingSerializer, MovieSerializer, SuggestionSerializer
+from .serializers import RatingSerializer, MovieSerializer, SuggestionSerializer, RegisterSerializer
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -14,14 +14,14 @@ from django.db.models import Case, When
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from .paginations import CustomNumberPagination, SuggestionsPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
 
 
 
 class delete_all(APIView):
     def get(self, request):
-        Suggestion.objects.all().delete()
+        Rating.objects.all().delete()
         return Response('ok')
 
 
@@ -377,71 +377,45 @@ class genre(ListAPIView, CustomNumberPagination):
         serializer = self.serializer_class(movies, many=True)
         return Response(serializer.data)
 
-# @api_view (['GET'])
-# def insert(request):
-#     df=pd.read_csv('final_movies.csv',index_col=[0])
-#     #print(df)
-#     row_iter = df.iterrows()
-#     objs = [
-#         Movie(
-#             id = index,
-#             mean_rating  = row['mean_rating'],
-#             number_of_ratings  = row['number_of_ratings'],
-#             title  = row['title'],
-#             War  = row['War'],
-#             Fantasy  = row['Fantasy'],
-#             Adventure  = row['Adventure'],
-#             Horror  = row['Horror'],
-#             Documentary  = row['Documentary'],
-#             Mystery  = row['Mystery'],
-#             Drama  = row['Drama'],
-#             Children  = row['Children'],
-#             Romance  = row['Romance'],
-#             IMAX  = row['IMAX'],
-#             Comedy  = row['Comedy'],
-#             Western  = row['Western'],
-#             Animation  = row['Animation'],
-#             No_genre  = row['No_genre'],
-#             Crime  = row['Crime'],
-#             Musical  = row['Musical'],
-#             Thriller  = row['Thriller'],
-# 		    Action = row['Action'],
-#             Sci_Fi  = row['Sci_Fi'],
-#             Film_Noir  = row['Film_Noir'],
-#             movieId  = row['movieId']
-#         )
+@api_view (['GET'])
+def insert(request):
+    df=pd.read_csv('final_ratings.csv',index_col=[0])
+    #print(df)
+    row_iter = df.iterrows()
+    objs = [
+        Rating(
+            userId  = row['userId'],
+            movieId  = row['movieId'],
+            rating  = row['rating'],
+        )
 
-#         for index, row in row_iter
-#     ]
-#     Movie.objects.bulk_create(objs)
-#     return Response('ok')
+        for index, row in row_iter
+    ]
+    Rating.objects.bulk_create(objs)
+    return Response('ok')
 
 # class CreateUser(APIView):
 #     def post(self, request):cd
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
 
-    class Meta:
-        model = User
-        fields = ['username', 'password', 'email', 'first_name', 'last_name']
-
-    def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
 
 @api_view (['GET'])
-def trial(request):
-    print(7001+userid.objects.all().count())
+def create_userid(request, pk):
+    id=userid.objects.get_or_create(
+        username=pk,
+        userId=7001+userid.objects.all().count()
+    )
     return Response('ok')
 
 
+# class RatingCreateView(generics.CreateAPIView):
+#     permission_classes=[IsAuthenticated]
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = RegisterSerializer
+    
 class RatingCreateView(generics.CreateAPIView):
     # permission_classes=[IsAuthenticated]
     queryset = Rating.objects.all()

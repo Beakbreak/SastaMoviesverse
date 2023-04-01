@@ -33,11 +33,11 @@ class Movie(models.Model):
 
 class Rating(models.Model):
   userId=models.IntegerField()
-  movieId=models.IntegerField(models.ForeignKey("collaborative.Movie", to_field='movieId',on_delete=models.CASCADE))
+  movieId=models.IntegerField()
   rating=models.FloatField()
    
   def __str__(self):
-    return self.userId
+    return str(self.userId)
     
 class Suggestion(models.Model):
   userId=models.IntegerField()
