@@ -17,4 +17,7 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='auth_register'),
     path('get_id/', views.Userid.as_view()),
     path('logout/', views.LogoutView.as_view(), name='auth_logout'),
+    path('increment/<str:pk>/', views.update_number.as_view()),
+    path('trending/',views.Trending.as_view()),
+    path('highly_rated',views.Highly_rated.as_view()),
 ]
