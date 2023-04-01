@@ -11,7 +11,7 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = '__all__'
         
-class MovieSerializer(serializers.ModelSerializer):
+class SuggestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Suggestion
         fields = '__all__'
