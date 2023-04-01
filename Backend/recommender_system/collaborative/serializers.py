@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from collaborative.models import Movie, Rating, Suggestion, userid
 from django.contrib.auth.models import User
+from rest_framework.validators import UniqueValidator
+from django.contrib.auth.password_validation import validate_password
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,11 +23,6 @@ class useridSerializer(serializers.ModelSerializer):
     class Meta:
         model= userid
         fields= '__all__'
-
-from rest_framework import serializers
-from django.contrib.auth.models import User
-from rest_framework.validators import UniqueValidator
-from django.contrib.auth.password_validation import validate_password
 
 
 class RegisterSerializer(serializers.ModelSerializer):

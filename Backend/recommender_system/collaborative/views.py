@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 import pandas as pd
 from collaborative.models import Movie, Rating, Suggestion, userid
-from .serializers import RatingSerializer, MovieSerializer, SuggestionSerializer, RegisterSerializer
+from .serializers import RatingSerializer, MovieSerializer, SuggestionSerializer, RegisterSerializer, useridSerializer
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -393,9 +393,7 @@ def insert(request):
     ]
     Rating.objects.bulk_create(objs)
     return Response('ok')
-
-# class CreateUser(APIView):
-#     def post(self, request):cd
+    
 
 
 @api_view (['GET'])
@@ -417,6 +415,15 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     
 class RatingCreateView(generics.CreateAPIView):
-    # permission_classes=[IsAuthenticated]
+    permission_classes=[IsAuthenticated]
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+    
+
+class Userid(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self, request):
+        name=request.user.username
+        id=userid.objects.get(username=name)
+        serializer=useridSerializer(id)
+        return Response(serializer.data)
