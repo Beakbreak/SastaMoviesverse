@@ -10,7 +10,7 @@ from tensorflow import keras
 import pandas as pd
 from .training_fuctions import cofi_cost_func_v
 from django.forms import model_to_dict
-from django.db.models import Case, When
+from django.db.models import Case, When, F
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from .paginations import CustomNumberPagination, SuggestionsPagination
@@ -223,89 +223,89 @@ class train(APIView):
                 Suggestion.objects.filter(userId=pk).update(suggestion_40=f"{j}")
         return Response('ok')
 
-@api_view (['GET'])
-def create_suggestions(request):
-    df=pd.read_csv('suggestions.csv',index_col=[0])
-    #print(df)
-    row_iter = df.iterrows()
-    objs = [
-        Suggestion(
-            userId = index,
-            suggestion_1  = row['suggestion_1'],
-            suggestion_2  = row['suggestion_2'],
-            suggestion_3  = row['suggestion_3'],
-            suggestion_4  = row['suggestion_4'],
-            suggestion_5  = row['suggestion_5'],
-            suggestion_6  = row['suggestion_6'],
-            suggestion_7  = row['suggestion_7'],
-            suggestion_8  = row['suggestion_8'],
-            suggestion_9  = row['suggestion_9'],
-            suggestion_10  = row['suggestion_10'],
-            suggestion_11 = row['suggestion_11'],
-            suggestion_12 = row['suggestion_12'],
-            suggestion_13 = row['suggestion_13'],
-            suggestion_14 = row['suggestion_14'],
-            suggestion_15 = row['suggestion_15'],
-            # Extract suggestion_16 from the row and assign it to a variable
-            suggestion_16 = row['suggestion_16'],
-            # Extract suggestion_17 from the row and assign it to a variable
-            suggestion_17 = row['suggestion_17'],
-            # Extract suggestion_18 from the row and assign it to a variable
-            suggestion_18 = row['suggestion_18'],
-            # Extract suggestion_19 from the row and assign it to a variable
-            suggestion_19 = row['suggestion_19'],
-            # Extract suggestion_20 from the row and assign it to a variable
-            suggestion_20 = row['suggestion_20'],
-            # Extract suggestion_21 from the row and assign it to a variable
-            suggestion_21 = row['suggestion_21'],
-            # Extract suggestion_22 from the row and assign it to a variable
-            suggestion_22 = row['suggestion_22'],
-            # Extract suggestion_23 from the row and assign it to a variable
-            suggestion_23 = row['suggestion_23'],
-            # Extract suggestion_24 from the row and assign it to a variable
-            suggestion_24 = row['suggestion_24'],
-            # Extract suggestion_25 from the row and assign it to a variable
-            suggestion_25 = row['suggestion_25'],
-            # Extract suggestion_26 from the row and assign it to a variable
-            suggestion_26 = row['suggestion_26'],
-            # Extract suggestion_27 from the row and assign it to a variable
-            suggestion_27 = row['suggestion_27'],
-            # Extract suggestion_28 from the row and assign it to a variable
-            suggestion_28 = row['suggestion_28'],
-            # Extract suggestion_29 from the row and assign it to a variable
-            suggestion_29 = row['suggestion_29'],
-            # Extract suggestion_30 from the row and assign it to a variable
-            suggestion_30 = row['suggestion_30'],
-            # Extract suggestion_31 from the row and assign it to a variable
-            suggestion_31 = row['suggestion_31'],
-            # Extract suggestion_32 from the row and assign it to a variable
-            suggestion_32 = row['suggestion_32'],
-            # Extract suggestion_33 from the row and assign it to a variable
-            suggestion_33 = row['suggestion_33'],
-            # Extract suggestion_34 from the row and assign it to a variable
-            suggestion_34 = row['suggestion_34'],
-            # Extract suggestion_35 from the row and assign it to a variable
-            suggestion_35 = row['suggestion_35'],
-            # Extract suggestion_36 from the row and assign it to a variable
-            suggestion_36 = row['suggestion_36'],
-            # Extract suggestion_37 from the row and assign it to a variable
-            suggestion_37 = row['suggestion_37'],
-            # Extract suggestion_38 from the row and assign it to a variable
-            suggestion_38 = row['suggestion_38'],
-            # Extract suggestion_39 from the row and assign it to a variable
-            suggestion_39 = row['suggestion_39'],
-            # Extract suggestion_40 from the row and assign it to a variable
-            suggestion_40 = row['suggestion_40']
-        )
+# @api_view (['GET'])
+# def create_suggestions(request):
+#     df=pd.read_csv('suggestions.csv',index_col=[0])
+#     #print(df)
+#     row_iter = df.iterrows()
+#     objs = [
+#         Suggestion(
+#             userId = index,
+#             suggestion_1  = row['suggestion_1'],
+#             suggestion_2  = row['suggestion_2'],
+#             suggestion_3  = row['suggestion_3'],
+#             suggestion_4  = row['suggestion_4'],
+#             suggestion_5  = row['suggestion_5'],
+#             suggestion_6  = row['suggestion_6'],
+#             suggestion_7  = row['suggestion_7'],
+#             suggestion_8  = row['suggestion_8'],
+#             suggestion_9  = row['suggestion_9'],
+#             suggestion_10  = row['suggestion_10'],
+#             suggestion_11 = row['suggestion_11'],
+#             suggestion_12 = row['suggestion_12'],
+#             suggestion_13 = row['suggestion_13'],
+#             suggestion_14 = row['suggestion_14'],
+#             suggestion_15 = row['suggestion_15'],
+#             # Extract suggestion_16 from the row and assign it to a variable
+#             suggestion_16 = row['suggestion_16'],
+#             # Extract suggestion_17 from the row and assign it to a variable
+#             suggestion_17 = row['suggestion_17'],
+#             # Extract suggestion_18 from the row and assign it to a variable
+#             suggestion_18 = row['suggestion_18'],
+#             # Extract suggestion_19 from the row and assign it to a variable
+#             suggestion_19 = row['suggestion_19'],
+#             # Extract suggestion_20 from the row and assign it to a variable
+#             suggestion_20 = row['suggestion_20'],
+#             # Extract suggestion_21 from the row and assign it to a variable
+#             suggestion_21 = row['suggestion_21'],
+#             # Extract suggestion_22 from the row and assign it to a variable
+#             suggestion_22 = row['suggestion_22'],
+#             # Extract suggestion_23 from the row and assign it to a variable
+#             suggestion_23 = row['suggestion_23'],
+#             # Extract suggestion_24 from the row and assign it to a variable
+#             suggestion_24 = row['suggestion_24'],
+#             # Extract suggestion_25 from the row and assign it to a variable
+#             suggestion_25 = row['suggestion_25'],
+#             # Extract suggestion_26 from the row and assign it to a variable
+#             suggestion_26 = row['suggestion_26'],
+#             # Extract suggestion_27 from the row and assign it to a variable
+#             suggestion_27 = row['suggestion_27'],
+#             # Extract suggestion_28 from the row and assign it to a variable
+#             suggestion_28 = row['suggestion_28'],
+#             # Extract suggestion_29 from the row and assign it to a variable
+#             suggestion_29 = row['suggestion_29'],
+#             # Extract suggestion_30 from the row and assign it to a variable
+#             suggestion_30 = row['suggestion_30'],
+#             # Extract suggestion_31 from the row and assign it to a variable
+#             suggestion_31 = row['suggestion_31'],
+#             # Extract suggestion_32 from the row and assign it to a variable
+#             suggestion_32 = row['suggestion_32'],
+#             # Extract suggestion_33 from the row and assign it to a variable
+#             suggestion_33 = row['suggestion_33'],
+#             # Extract suggestion_34 from the row and assign it to a variable
+#             suggestion_34 = row['suggestion_34'],
+#             # Extract suggestion_35 from the row and assign it to a variable
+#             suggestion_35 = row['suggestion_35'],
+#             # Extract suggestion_36 from the row and assign it to a variable
+#             suggestion_36 = row['suggestion_36'],
+#             # Extract suggestion_37 from the row and assign it to a variable
+#             suggestion_37 = row['suggestion_37'],
+#             # Extract suggestion_38 from the row and assign it to a variable
+#             suggestion_38 = row['suggestion_38'],
+#             # Extract suggestion_39 from the row and assign it to a variable
+#             suggestion_39 = row['suggestion_39'],
+#             # Extract suggestion_40 from the row and assign it to a variable
+#             suggestion_40 = row['suggestion_40']
+#         )
 
-        for index, row in row_iter
-    ]
-    Suggestion.objects.bulk_create(objs)
-    return Response('ok')
+#         for index, row in row_iter
+#     ]
+#     Suggestion.objects.bulk_create(objs)
+#     return Response('ok')
 
 class suggestions(ListAPIView, SuggestionsPagination):
     permission_classes = [IsAuthenticated]
-    pagination_class=CustomNumberPagination
+    pagination_class=SuggestionsPagination
     serializer_class=MovieSerializer
     def get_suggestions(self ,request, pk):
         suggestions=Suggestion.objects.get(userId=pk)
@@ -331,43 +331,43 @@ class genre(ListAPIView, CustomNumberPagination):
     serializer_class=MovieSerializer
     def get(self, request, pk):
         if(pk=='War'):
-            movies=Movie.objects.filter(War=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(War=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Fantasy'):
-            movies=Movie.objects.filter(Fantasy=1).order_by(-'number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Fantasy=1).order_by(-'number_of_ratings','-mean_rating')
         elif (pk=='Adventure'):
-            movies=Movie.objects.filter(Adventure=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Adventure=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Horror'):
-            movies=Movie.objects.filter(Horror=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Horror=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Documentary'):
-            movies=Movie.objects.filter(Documentary=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Documentary=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Mystery'):
-            movies=Movie.objects.filter(Mystery=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Mystery=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Drama'):
-            movies=Movie.objects.filter(Drama=1).order_by('-number_of_ratings','mean_rating')    
+            movies=Movie.objects.filter(Drama=1).order_by('-number_of_ratings','-mean_rating')    
         elif (pk=='Children'):
-            movies=Movie.objects.filter(Children=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Children=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Romance'):
-            movies=Movie.objects.filter(Romance=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Romance=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='IMAX'):
-            movies=Movie.objects.filter(IMAX=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(IMAX=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Comedy'):
-            movies=Movie.objects.filter(Comedy=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Comedy=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Western'):
-            movies=Movie.objects.filter(Western=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Western=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Animation'):
-            movies=Movie.objects.filter(Animation=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Animation=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Crime'):
-            movies=Movie.objects.filter(Crime=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Crime=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Musical'):
-            movies=Movie.objects.filter(Musical=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Musical=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Thriller'):
-            movies=Movie.objects.filter(Thriller=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Thriller=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Sci_Fi'):
-            movies=Movie.objects.filter(Sci_Fi=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Sci_Fi=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Action'):
-            movies=Movie.objects.filter(Action=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Action=1).order_by('-number_of_ratings','-mean_rating')
         elif (pk=='Film_Noir'):
-            movies=Movie.objects.filter(Film_Noir=1).order_by('-number_of_ratings','mean_rating')
+            movies=Movie.objects.filter(Film_Noir=1).order_by('-number_of_ratings','-mean_rating')
         page = self.request.query_params.get('page')
         self.queryset=movies
         if page is not None:
@@ -418,6 +418,19 @@ class RatingCreateView(generics.CreateAPIView):
     permission_classes=[IsAuthenticated]
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
+        
+    
+class update_number(APIView):
+    permission_classes=[IsAuthenticated]
+    def get(self, request, pk):
+        print(int(pk))
+        movie=Movie.objects.get(movieId=int(pk))
+        movie_dict=model_to_dict(movie)
+        ratings=movie_dict['number_of_ratings']
+        print(ratings)
+        ratings+=1
+        movie.objects.update(number_of_ratings=ratings)
+        return Response('ok')
     
 
 class Userid(APIView):
@@ -450,3 +463,36 @@ class LogoutView(APIView):
 #             t, _ = BlacklistedToken.objects.get_or_create(token=token)
 
 #         return Response(status=status.HTTP_205_RESET_CONTENT)
+
+    
+class Trending(ListAPIView, CustomNumberPagination):
+    pagination_class=CustomNumberPagination
+    serializer_class=MovieSerializer
+    permission_classes=[IsAuthenticated]
+    def get(self, request):
+        movies=Movie.objects.all().order_by('-number_of_ratings')
+        serializer=MovieSerializer(movies, many= True)
+        page = self.request.query_params.get('page')
+        self.queryset=movies
+        if page is not None:
+            paginate_queryset = self.paginate_queryset(movies)
+            serializer = self.serializer_class(paginate_queryset, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(movies, many=True)
+        return Response(serializer.data)
+
+class Highly_rated(ListAPIView, CustomNumberPagination):
+    pagination_class=CustomNumberPagination
+    serializer_class=MovieSerializer
+    permission_classes=[IsAuthenticated]
+    def get(self, request):
+        movies=Movie.objects.all().order_by('-mean_rating')
+        serializer=MovieSerializer(movies, many= True)
+        page = self.request.query_params.get('page')
+        self.queryset=movies
+        if page is not None:
+            paginate_queryset = self.paginate_queryset(movies)
+            serializer = self.serializer_class(paginate_queryset, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.serializer_class(movies, many=True)
+        return Response(serializer.data)
