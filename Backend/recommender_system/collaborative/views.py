@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework import generics
+from rest_framework import generics, status
 import pandas as pd
 from collaborative.models import Movie, Rating, Suggestion, userid
 from .serializers import RatingSerializer, MovieSerializer, SuggestionSerializer, RegisterSerializer, useridSerializer
@@ -16,7 +16,7 @@ from rest_framework.generics import ListAPIView
 from .paginations import CustomNumberPagination, SuggestionsPagination
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.models import User
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class delete_all(APIView):
@@ -427,3 +427,26 @@ class Userid(APIView):
         id=userid.objects.get(username=name)
         serializer=useridSerializer(id)
         return Response(serializer.data)
+    
+class LogoutView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST) 
+
+# class LogoutAllView(APIView):
+#     permission_classes = (IsAuthenticated,)
+
+#     def post(self, request):
+#         tokens = OutstandingToken.objects.filter(user_id=request.user.id)
+#         for token in tokens:
+#             t, _ = BlacklistedToken.objects.get_or_create(token=token)
+
+#         return Response(status=status.HTTP_205_RESET_CONTENT)
