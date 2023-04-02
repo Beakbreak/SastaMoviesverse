@@ -1,4 +1,4 @@
-import Navbar from './Navbar';
+
 import Banner from './Banner';
 import classes from './Dashboard.module.css';
 import ContentSlider from './ContentSlider';
@@ -9,8 +9,9 @@ const Dashboard = () => {
             <div className={classes.stars}></div>
             <div className={classes.twinkling}></div>
             <div className={classes.clouds}></div></div>
-        <Navbar />
         <Banner />
+
+
         <ContentSlider />
     </>)
 }

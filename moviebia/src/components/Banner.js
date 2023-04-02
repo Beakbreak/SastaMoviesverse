@@ -1,64 +1,58 @@
 import classes from './Banner.module.scss';
+import Slider from 'react-slick';
+import Navbar from './Navbar';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import banimage from "./sampleBanner.jpg";
+function SampleNextArrow(props) {
+    // const { className, style, onClick } = props;
+    return (
+        <div />
+    );
+}
+
+function SamplePrevArrow(props) {
+    // const { className, style, onClick } = props;
+    return (
+        <div />
+    );
+}
 const Banner = props => {
-    return (<div className={classes.main1}>
-        <ul className={classes.ul}>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Kung-Fu Panda</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/lwYJ4rx.jpg" />
-                </a>
-            </li>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Toy Story</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/BjB65TS.jpg" />
-                </a>
-            </li>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Wall-E</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/nyettOe.jpg" />
-                </a>
-            </li>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Up</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/WBTntRU.jpg" />
-                </a>
-            </li>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Cars 2</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/QwnE7FX.jpg" />
-                </a>
-            </li>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Cars 2</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/QwnE7FX.jpg" />
-                </a>
-            </li>
-            <li className={classes.li}>
-                {/* <div className={classes.slidetitle}> */}
-                {/* <span className={classes.span}>Cars 2</span> */}
-                {/* </div> */}
-                <a href='#'>
-                    <img className={classes.img} src="https://i.imgur.com/QwnE7FX.jpg" />
-                </a>
-            </li>
-        </ul>
-    </div>);
+    var settings = {
+        dots: true,
+        infinite: true,
+        fade: true,
+        autoplay: true,
+        speed: 1000,
+        autoplaySpeed: 6000,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        nextArrow: <SampleNextArrow />,
+        prevArrow: <SamplePrevArrow />
+    };
+    return (<>
+        <div>
+
+            <Slider {...settings} className={classes.slider}>
+                <div className={classes["img-shadow"]}>
+                    <img src={banimage} className={classes.bannerImage} />
+                </div>
+                <div className={classes["img-shadow"]}>
+                    <img src={banimage} className={classes.bannerImage} />
+                </div>
+                <div className={classes["img-shadow"]}>
+                    <img src={banimage} className={classes.bannerImage} />
+                </div>
+                <div className={classes["img-shadow"]}>
+                    <img src={banimage} className={classes.bannerImage} />
+                </div>
+                <div className={classes["img-shadow"]}>
+                    <img src={banimage} className={classes.bannerImage} />
+                </div>
+                <div className={classes["img-shadow"]}>
+                    <img src={banimage} className={classes.bannerImage} />
+                </div>
+            </Slider></div><Navbar /></>
+    );
 }
 export default Banner;

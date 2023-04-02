@@ -1,7 +1,7 @@
 import classes from './ContentSlider.module.scss';
 const ContentSlider = () => {
     return (<>
-        <div className={classes.container}>
+        {/* <div className={classes.container}>
             <div className={`${classes.box} ${classes.vintage}`}>
                 <img className={classes.img} src="https://source.unsplash.com/1000x800" />
 
@@ -18,7 +18,7 @@ const ContentSlider = () => {
                 <img className={classes.img} src="https://source.unsplash.com/1000x806" />
 
             </div>
-        </div>
+        </div> */}
     </>);
 }
 export default ContentSlider;
