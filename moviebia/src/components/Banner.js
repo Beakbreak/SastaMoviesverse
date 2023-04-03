@@ -4,22 +4,9 @@ import Navbar from './Navbar';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import banimage from "./sampleBanner.jpg";
-function SampleNextArrow(props) {
-    // const { className, style, onClick } = props;
-    return (
-        <div />
-    );
-}
 
-function SamplePrevArrow(props) {
-    // const { className, style, onClick } = props;
-    return (
-        <div />
-    );
-}
 const Banner = props => {
     var settings = {
-        dots: true,
         infinite: true,
         fade: true,
         autoplay: true,
@@ -27,8 +14,8 @@ const Banner = props => {
         autoplaySpeed: 6000,
         slidesToShow: 1,
         slidesToScroll: 1,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />
+        arrows: false,
+
     };
     return (<>
         <div>

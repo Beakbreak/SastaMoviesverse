@@ -1,5 +1,6 @@
 
 import Banner from './Banner';
+import Navmenu from './Navmenu';
 import classes from './Dashboard.module.css';
 import ContentSlider from './ContentSlider';
 const Dashboard = () => {
@@ -9,6 +10,7 @@ const Dashboard = () => {
             <div className={classes.stars}></div>
             <div className={classes.twinkling}></div>
             <div className={classes.clouds}></div></div>
+        <Navmenu />
         <Banner />
 
 
