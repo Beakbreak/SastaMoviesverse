@@ -2,7 +2,7 @@
     background-color: transparent;
 
     height: 10vh;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 34vw;
     text-align: center;

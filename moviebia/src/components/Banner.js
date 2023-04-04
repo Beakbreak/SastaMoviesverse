@@ -21,22 +21,24 @@ const Banner = props => {
         <div>
 
             <Slider {...settings} className={classes.slider}>
-                <div className={classes["img-shadow"]}>
+                <div>
+                    <img src={banimage} className={classes.bannerImage} />
+                    <div className={classes.movInfo}><h2 className={classes.movName}>John Wick 4</h2></div>
+
+                </div>
+                <div>
                     <img src={banimage} className={classes.bannerImage} />
                 </div>
-                <div className={classes["img-shadow"]}>
+                <div>
                     <img src={banimage} className={classes.bannerImage} />
                 </div>
-                <div className={classes["img-shadow"]}>
+                <div>
                     <img src={banimage} className={classes.bannerImage} />
                 </div>
-                <div className={classes["img-shadow"]}>
+                <div>
                     <img src={banimage} className={classes.bannerImage} />
                 </div>
-                <div className={classes["img-shadow"]}>
-                    <img src={banimage} className={classes.bannerImage} />
-                </div>
-                <div className={classes["img-shadow"]}>
+                <div>
                     <img src={banimage} className={classes.bannerImage} />
                 </div>
             </Slider></div><Navbar /></>
