@@ -14,7 +14,28 @@ const Dashboard = () => {
         <Banner />
 
 
-        <ContentSlider />
+        <ContentSlider title="Suggested For You" />
+        <ContentSlider title="Most Rated" />
+        <ContentSlider title="Trending" />
+        <ContentSlider title="Action Movies" />
+        <ContentSlider title="Adventure Movies" />
+        <ContentSlider title="War Movies" />
+        <ContentSlider title="Fantasy Movies" />
+        <ContentSlider title="Horror Movies" />
+        <ContentSlider title="Documentary Movies" />
+        <ContentSlider title="Mystery Movies" />
+        <ContentSlider title="Drama Movies" />
+        <ContentSlider title="Kids' Movies" />
+        <ContentSlider title="Romance Movies" />
+        <ContentSlider title="IMAX Movies" />
+        <ContentSlider title="Comedy Movies" />
+        <ContentSlider title="Western Movies" />
+        <ContentSlider title="Animation Movies" />
+        <ContentSlider title="Crime Movies" />
+        <ContentSlider title="Musical Movies" />
+        <ContentSlider title="Thriller Movies" />
+        <ContentSlider title="Sci-Fi Movies" />
+        <ContentSlider title="Film Noir Movies" />
     </>)
 }
 export default Dashboard;
