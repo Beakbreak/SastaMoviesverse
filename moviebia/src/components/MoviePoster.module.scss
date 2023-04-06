@@ -1,0 +1,42 @@
+.posterimg {
+    height: 43vh;
+    width: 14vw;
+    border-radius: 5px;
+}
+
+.imgcontainer {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    flex: 1;
+    transition: 3s;
+}
+
+.backdropimg:last-child {
+    display: none;
+}
+
+.imgcontainer:hover {
+    flex: 1 1 50%;
+}
+
+.imgcontainer:hover .backdropimg:last-child {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.imgcontainer:hover .posterimg:first-child {
+    display: none;
+}
+
+.imgcontainer>.backdropimg {
+    width: 200%;
+    height: 100%;
+    object-fit: cover;
+    transition: 3s;
+}
+
+/* .imgcontainer {
+    /* margin: 1vw 1vh; */
+/* display: flex; */
+/* } */

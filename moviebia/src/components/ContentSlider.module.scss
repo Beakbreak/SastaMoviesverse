@@ -1,17 +1,53 @@
 .slider {
     margin-left: 6vw;
     max-width: 90vw;
+    display: flex;
 }
+
 
 // .posterDiv {
 //     max-width: min-content;
 // }
+
+
 .movType {
     margin-left: 5vw;
     margin-top: 2vh;
     margin-bottom: 2vh;
     color: antiquewhite;
+
+
 }
+
+@mixin arrow-transitions($rot: 0deg) {
+    transform: translate(-50%, -115%) rotateZ($rot);
+}
+
+.viewall {
+    display: inline;
+    color: antiquewhite;
+    position: absolute;
+    right: 7vw;
+
+    &:hover {
+        cursor: pointer;
+
+        .arrowt {
+            top: 50%;
+
+
+            &:before {
+                @include arrow-transitions(-30deg);
+            }
+
+            &:after {
+                @include arrow-transitions(30deg);
+            }
+        }
+    }
+}
+
+
 
 .arrow {
     position: absolute;
@@ -50,5 +86,74 @@
         transform: translate(-40%, -60%) rotate(45deg);
         width: 200%;
         height: 200%;
+    }
+}
+
+$total-arrows: 3;
+$arrow-line-length: 25px;
+$arrow-line-width: 2px;
+
+// arrow animtion + choose direction
+
+
+.arrow-container {
+    display: block;
+    min-width: 25px;
+    min-height: 25px;
+    position: absolute;
+
+    z-index: 0;
+    left: 130%;
+    @include arrow-transitions(-90deg);
+
+    &:hover {
+        cursor: pointer;
+
+        .arrowt {
+            top: 50%;
+
+
+            &:before {
+                @include arrow-transitions(-30deg);
+            }
+
+            &:after {
+                @include arrow-transitions(30deg);
+            }
+        }
+    }
+}
+
+.arrowt {
+    position: absolute;
+    left: 50%;
+    transition: all .4s ease;
+
+
+    &:before,
+    &:after {
+        transition: all .4s ease;
+        content: '';
+
+        display: block;
+        position: absolute;
+        transform-origin: bottom right;
+        background: #1d9000f7;
+        width: $arrow-line-width;
+        height: $arrow-line-length;
+        border-radius: 10px;
+        transform: translate(-50%, -50%) rotateZ(-45deg);
+    }
+
+    &:after {
+        transform-origin: bottom left;
+        transform: translate(-50%, -50%) rotateZ(45deg);
+    }
+
+    @for $i from 1 through $total-arrows {
+        &:nth-child(#{$i}) {
+            opacity: 0.3 * $i;
+            top: 15 + (100% * $i/5);
+        }
     }
 }
