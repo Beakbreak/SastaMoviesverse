@@ -19,10 +19,10 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
-class delete_all(APIView):
-    def get(self, request):
-        Rating.objects.all().delete()
-        return Response('ok')
+# class delete_all(APIView):
+#     def get(self, request):
+#         Rating.objects.all().delete()
+#         return Response('ok')
 
 
 class Ratings(APIView):
@@ -377,22 +377,22 @@ class genre(ListAPIView, CustomNumberPagination):
         serializer = self.serializer_class(movies, many=True)
         return Response(serializer.data)
 
-@api_view (['GET'])
-def insert(request):
-    df=pd.read_csv('final_ratings.csv',index_col=[0])
-    #print(df)
-    row_iter = df.iterrows()
-    objs = [
-        Rating(
-            userId  = row['userId'],
-            movieId  = row['movieId'],
-            rating  = row['rating'],
-        )
+# @api_view (['GET'])
+# def insert(request):
+#     df=pd.read_csv('final_ratings.csv',index_col=[0])
+#     #print(df)
+#     row_iter = df.iterrows()
+#     objs = [
+#         Rating(
+#             userId  = row['userId'],
+#             movieId  = row['movieId'],
+#             rating  = row['rating'],
+#         )
 
-        for index, row in row_iter
-    ]
-    Rating.objects.bulk_create(objs)
-    return Response('ok')
+#         for index, row in row_iter
+#     ]
+#     Rating.objects.bulk_create(objs)
+#     return Response('ok')
     
 
 
@@ -427,9 +427,14 @@ class update_number(APIView):
         movie=Movie.objects.get(movieId=int(pk))
         movie_dict=model_to_dict(movie)
         ratings=movie_dict['number_of_ratings']
+        mean=movie_dict['mean_rating']
+        rating=int(self.request.query_params.get('rating'))
+        print(mean)
         print(ratings)
+        new_mean=(mean*ratings+rating)/(ratings+1) 
         ratings+=1
-        movie.objects.update(number_of_ratings=ratings)
+        Movie.objects.filter(movieId=int(pk)).update(number_of_ratings=ratings)
+        Movie.objects.filter(movieId=int(pk)).update(mean_rating=new_mean)
         return Response('ok')
     
 
@@ -496,3 +501,48 @@ class Highly_rated(ListAPIView, CustomNumberPagination):
             return self.get_paginated_response(serializer.data)
         serializer = self.serializer_class(movies, many=True)
         return Response(serializer.data)
+
+
+@api_view (['GET'])
+def delete_all(request):
+    Movie.objects.all().delete()
+    return Response('ok')
+
+@api_view (['GET'])
+def insert(request):
+    df=pd.read_csv('final_movies.csv',index_col=[0])
+    #print(df)
+    row_iter = df.iterrows()
+    objs = [
+        Movie(
+            id = index,
+            mean_rating  = row['mean_rating'],
+            number_of_ratings  = row['number_of_ratings'],
+            title  = row['title'],
+            War  = row['War'],
+            Fantasy  = row['Fantasy'],
+            Adventure  = row['Adventure'],
+            Horror  = row['Horror'],
+            Documentary  = row['Documentary'],
+            Mystery  = row['Mystery'],
+            Drama  = row['Drama'],
+            Children  = row['Children'],
+            Romance  = row['Romance'],
+            IMAX  = row['IMAX'],
+            Comedy  = row['Comedy'],
+            Western  = row['Western'],
+            Animation  = row['Animation'],
+            No_genre  = row['No_genre'],
+            Crime  = row['Crime'],
+            Musical  = row['Musical'],
+            Thriller  = row['Thriller'],
+		    Action = row['Action'],
+            Sci_Fi  = row['Sci_Fi'],
+            Film_Noir  = row['Film_Noir'],
+            movieId  = row['movieId']
+        )
+
+        for index, row in row_iter
+    ]
+    Movie.objects.bulk_create(objs)
+    return Response('ok')
